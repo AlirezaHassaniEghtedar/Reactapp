@@ -33,3 +33,26 @@
 .global-logo img {
     width: 200px;
 }
+
+.nav-menu {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 22px;
+    margin-left: 50px;
+}
+
+ul {
+    font-size: 13px;
+    line-height: 21px;
+}
+
+li {
+    display: inline-block;
+    margin-right: 28px;
+    padding-bottom: 22px;
+    position: relative;
+}
+
+.nav-menu ul li:first-child {
+    margin-right: 5px;
+}
