@@ -51,6 +51,7 @@ li {
     margin-right: 28px;
     padding-bottom: 22px;
     position: relative;
+    cursor: pointer;
 }
 
 li>a {
@@ -96,4 +97,5 @@ li>a {
     left: 0;
     width: 0;
     height: 2px;
+    transition: all 0.3s;
 }

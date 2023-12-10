@@ -20,4 +20,9 @@ menuItems.forEach((item) => {
 
 function hightlight() {
     const itemCordinates = this.getBoundingClientRect();
+    console.log(itemCordinates);
+    const {width , left , bottom} = itemCordinates;
+    console.log(width , left , bottom);
+    span.style.width = `${width}px`;
+    span.style.transform = `translate(${left}px , ${bottom}px)`
 }
