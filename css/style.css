@@ -53,6 +53,47 @@ li {
     position: relative;
 }
 
+li>a {
+    text-decoration: none;
+    color: #252222;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
 .nav-menu ul li:first-child {
     margin-right: 5px;
+}
+
+.header-button {
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    background: #FFB606;
+    padding: 10px;
+    color: #FFF;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    border-radius: 5px;
+    box-shadow: 0 0.0125rem 0.25rem rgba(0, 0, 0, 0.075);
+    cursor: pointer;
+}
+
+.header-button span {
+    margin-right: 10px;
+}
+
+.highlight {
+    display: block;
+    position: absolute;
+    z-index: 1001;
+    background: #FFB606;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
 }
