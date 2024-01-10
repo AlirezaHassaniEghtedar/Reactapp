@@ -11,6 +11,13 @@
     direction: rtl;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
 .global-header {
     width: 100%;
     box-shadow: 0 0.0125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -206,4 +213,66 @@ li>a {
 
 #icon-04 {
     background: #2EF968;
+}
+
+.fa-angle-down {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+/* ----- popup ----- */
+
+.popup {
+    width: 500px;
+    height: 500px;
+    background: #FFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    display: none;
+    transition: all linear 0.3s;
+    z-index: 1100;
+    border-radius: 5px;
+}
+
+.popup.active {
+    display: block;
+    opacity: 1;
+}
+
+.popup .header {
+    background: #F7F7F7;
+    border: 1px solid #F0F0F0;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup .header .fa-times {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: auto;
+    background: rgba(108, 117, 125, 0.6);
+    transform: translate(0 , 0);
+    transition: all 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
 }

@@ -1,7 +1,40 @@
+const courses = document.getElementById('courses');
+const subNav = document.querySelector('.sub-nav');
+const popup = document.querySelector('.popup');
+const signUpButton = document.querySelector('.header-button');
+const popupCloseBtn = document.querySelector('.popup .header .fa-times');
+const overlay = document.querySelector('.overlay');
 
 
 
 
+
+// event listeners
+
+courses.addEventListener('mouseover' , function(){
+    subNav.style.display = 'flex';
+})
+
+subNav.addEventListener('mouseleave' , function(){
+    subNav.style.display = 'none';
+})
+
+signUpButton.addEventListener('click' , showPopup)
+
+popupCloseBtn.addEventListener('click' , closePopup)
+
+overlay.addEventListener('click' , closePopup)
+// Functions
+function showPopup() {
+    popup.classList.add('active');
+    document.body.overflow = 'hidden';
+    overlay.classList.add('active');
+}
+function closePopup() {
+    popup.classList.remove('active');
+    document.body.overflow = 'visible';
+    overlay.classList.remove('active');
+}
 
 
 
@@ -26,3 +59,4 @@ function hightlight() {
     span.style.width = `${width}px`;
     span.style.transform = `translateX(${left}px)`
 }
+

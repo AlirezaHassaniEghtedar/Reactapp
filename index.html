@@ -11,7 +11,8 @@
 
 </head>
 <body>
-    <!-- global headerf start -->
+    <div class="overlay"></div>
+    <!-- global header start -->
     <header class="global-header">
         <!-- header row start -->
         <div class="header-row">
@@ -26,7 +27,7 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#">صفحه اصلی</a></li>
-                    <li><a href="#">دوره ها</a></li>
+                    <li id="courses"><a href="#">دوره ها</a><li class="fa fa-angle-down"></li></li>
                     <!-- sub nav menu start -->
                     <div class="sub-nav">
                         <div class="sub-nav-col left">
@@ -81,6 +82,14 @@
     </header>
     <!-- global header end -->
     
+    <!-- popup start -->
+    <div class="popup">
+        <div class="header">
+            <h2>ورود</h2>
+            <i class="fa fa-times"></i>
+        </div>
+    </div>
+    <!-- popup end -->
     <script src="./scripts/scripts.js"></script>
 </body>
 </html>
