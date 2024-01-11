@@ -4,7 +4,9 @@ const popup = document.querySelector('.popup');
 const signUpButton = document.querySelector('.header-button');
 const popupCloseBtn = document.querySelector('.popup .header .fa-times');
 const overlay = document.querySelector('.overlay');
-
+const form = document.getElementById('form');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
 
 
 
@@ -24,6 +26,11 @@ signUpButton.addEventListener('click' , showPopup)
 popupCloseBtn.addEventListener('click' , closePopup)
 
 overlay.addEventListener('click' , closePopup)
+
+form.addEventListener('submit' , function(e) {
+    e.preventDefault();
+    checkinputs();
+})
 // Functions
 function showPopup() {
     popup.classList.add('active');
@@ -36,7 +43,21 @@ function closePopup() {
     overlay.classList.remove('active');
 }
 
+function checkinputs() {
+    const usernameValue = username.value.trim();
+    const passwordValue = password.value.trim();
+    if(usernameValue === '') {
+        setErrorFor(username , 'نام کاربری باید حتما وارد شود')
+    }
+}
 
+function setErrorFor(input , message) {
+    const formControl = input.parentElement;
+    const small = formControl.querySelector('small');
+    small.innerText = message;
+    formControl.className = 'form-control error';
+    return false;       
+}
 
 
 

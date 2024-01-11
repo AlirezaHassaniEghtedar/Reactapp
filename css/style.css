@@ -276,3 +276,72 @@ li>a {
     opacity: 1;
     visibility: visible;
 }
+
+.popup .form {
+    padding: 30px 40px;
+}
+
+.popup .form .form-control {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.popup .form .form-control input {
+    border: 2px solid #F0F0F0;
+    border-radius: 4px;
+    display: block;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
+    direction: ltr;
+    padding-left: 33px;
+}
+
+.popup .form .form-control.success input {
+    border-color: #2ECC71;
+}
+.popup .form .form-control.error input {
+    border-color: #E74C3C;
+    direction: rtl;
+}
+
+.popup .form .form-control i {
+    position: absolute;
+    top: 42px;
+    left: 10px;
+    visibility: hidden;
+}
+
+.popup .form .form-control.success i.fa-check-circle {
+    color: #2ECC71;
+    visibility: visible;
+}
+.popup .form .form-control.error i.fa-exclamation-circle {
+    color: #E74C3C;
+    visibility: visible;
+}
+
+.popup .form .form-control small {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+}
+
+.popup .form .form-control.error small {
+    visibility: visible;
+    color: #E74C3C;    
+}
+
+.popup .form .form-control button {
+    background: #FFB606;
+    color: #FFF;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
