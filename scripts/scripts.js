@@ -12,9 +12,25 @@ const _open_mobileMenuIcon = document.getElementById('openMenu')
 const _close_mobileMenuIcon = document.getElementById('closeMenu')
 const hamburgerMenu = document.getElementById('nav')
 const globalHeader = document.querySelector('.global-header')
+const topBar = document.querySelector('.top-bar')
 const container = document.querySelector('.container')
 const mobileMenuItemHasChildren = document.querySelector('.menu-item-has-children')
 const signupUserCircelIcon = document.querySelector('.fa-user-circle')
+const toggleSearch = document.getElementById('toggleSearch')
+const headerRow = document.querySelector('.header-row')
+const searchRow = document.querySelector('.search-row')
+const searchInput = document.querySelector('.search-input')
+const featuredCourse = document.querySelector('.featured-course')
+const back_to_top = document.querySelector('.back-to-top')
+
+// Back To Top Progress
+let scrollHeight , scrollTop , clientHeight , position_percentage;
+
+// CountDown Selectors
+const _days_ = document.getElementById('days')
+const _hours_ = document.getElementById('hours')
+const _minutes_ = document.getElementById('minutes')
+const _seconds_ = document.getElementById('seconds')
 
 
 // event listeners
@@ -41,18 +57,51 @@ _close_mobileMenuIcon.addEventListener('click' , closeHamburgerMenu)
 
 mobileMenuItemHasChildren.addEventListener('click' , toggleMobileDropDownMenu)
 signupUserCircelIcon.addEventListener('click' , showPopup)
+
+document.addEventListener('keyup' , (e) => {
+    if(e.code === 'Escape') closePopup()
+})
+
+toggleSearch.addEventListener('click' , toggleSearchHandler)
+
+
 // Sticky Nav Start
 window.addEventListener('scroll' , function() {
-    console.log(globalHeader.offsetHeight);
-    console.log(globalHeader.offsetTop);
-    console.log(window.scrollY);
     if(window.scrollY >= globalHeader.offsetTop + globalHeader.offsetHeight ) {
         globalHeader.style.position = 'fixed'
     } else {
         globalHeader.style.position = 'relative'
     }
+    // show back to top btn
+    if(scrollY > 100) {
+        back_to_top.classList.add('active')
+    } else {
+        back_to_top.classList.remove('active')
+    }
+    // back to top progress
+    scrollTop = document.documentElement.scrollTop
+    scrollHeight = document.documentElement.scrollHeight
+    clientHeight = this.document.documentElement.clientHeight
+
+    position_percentage = Math.round((scrollTop * 100) / (scrollHeight - clientHeight))
+    console.log(position_percentage);
+
+    back_to_top.style.setProperty('background-image' , `conic-gradient(#ffd738 ${position_percentage}% , #455A64 ${position_percentage}%)`)
 })
+
 // Sticky Nav End
+
+// Featured Course Anmation
+window.addEventListener('load' , () => {
+    window.addEventListener('scroll' , () => {
+        featuredCourse.classList.add('active')
+    })
+})
+
+// Back To Top
+back_to_top.addEventListener('click' , () => {
+    window.scrollTo({top:0 , behavior:"smooth"})
+})
 
 // Functions
 function showPopup() {
@@ -137,6 +186,7 @@ function openHamburgerMenu() {
     const mobileNavWidth = window.getComputedStyle(hamburgerMenu).getPropertyValue('width')
     globalHeader.style.transform = `translate(${mobileNavWidth} , 0)`
     container.style.transform = `translate(${mobileNavWidth} , 0)`
+    topBar.style.transform = `translate(${mobileNavWidth} , 0)`
     document.body.style.overflow = 'hidden'
     _close_mobileMenuIcon.style.display = 'block'
     _open_mobileMenuIcon.style.display = 'none'
@@ -146,6 +196,7 @@ function closeHamburgerMenu() {
     hamburgerMenu.classList.remove('active')
     globalHeader.style.transform = `translate(0 , 0)`
     container.style.transform = `translate(0 , 0)`
+    topBar.style.transform = `translate(0 , 0)`
     document.body.style.overflow = 'visible'
     _close_mobileMenuIcon.style.display = 'none'
     _open_mobileMenuIcon.style.display = 'block'
@@ -162,6 +213,36 @@ function toggleMobileDropDownMenu() {
     ul_Element.classList.toggle('active')
     i_Element.setAttribute('style' , 'position:absolute;left:0')
     this.classList.toggle('active')
+}
+
+function toggleSearchHandler() {
+    if(this.className === 'fa fa-search') {
+        document.querySelector('.highlight').style.visibility = 'hidden'
+        headerRow.classList.add('disabled')
+        searchRow.classList.add('active')
+        this.className = 'fa fa-times'
+        addSpeechRecognition()
+    } else {
+        document.querySelector('.highlight').style.visibility = 'visible'
+        headerRow.classList.remove('disabled')
+        searchRow.classList.remove('active')
+        this.className = 'fa fa-search'
+    }
+}
+
+function addSpeechRecognition() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    const recognition = new SpeechRecognition()
+    recognition.lang = 'fa-IR'
+    recognition.interimResults = true
+    recognition.addEventListener('result' , e => {
+        // searchInput.value = e.results[0][0].transcript
+        if(e.results[0].isFinal) {
+            searchInput.value = e.results[0][0].transcript
+        }
+    })
+    recognition.addEventListener('end' , recognition.start)
+    recognition.start()
 }
 
 // header nav menu border animation 
@@ -182,3 +263,23 @@ function hightlight() {
     span.style.transform = `translateX(${left}px)`
 }
 
+// CountDown start
+const _publishDate_ = 'Dec 10 2024'
+let days , hours , minutes , seconds;
+function countDown() {
+    const currentDate = new Date()
+    const publishDate = new Date(_publishDate_)
+    remainingTime = publishDate - currentDate;
+
+    days = Math.floor(remainingTime / 1000 / 3600 / 24)
+    hours = Math.floor(remainingTime / 1000 / 3600) % 24
+    minutes = Math.floor(remainingTime / 1000 / 60) % 60
+    seconds = Math.floor(remainingTime / 1000) % 60
+
+    _days_.innerText = days
+    _hours_.innerText = hours
+    _minutes_.innerText = minutes
+    _seconds_.innerText = seconds
+}
+setInterval(countDown , 1000)
+// CountDown end
