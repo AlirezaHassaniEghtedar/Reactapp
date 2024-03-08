@@ -449,8 +449,19 @@ li>a {
     font-size: 18px;
 }
 
+#nav ul li:first-child {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #nav ul li a {
     color: #FFF;
+}
+
+.search-form {
+    position: relative;
 }
 
 .search-field {
@@ -459,15 +470,19 @@ li>a {
     color: #6C757D;
     font-size: 20px;
     outline: none;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 3px;
 }
 
-.search-form {
-    position: relative;
-}
 
 .search-form .search-submit {
     left: 0;
     right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-form .search-submit {
