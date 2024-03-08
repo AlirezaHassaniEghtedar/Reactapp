@@ -420,7 +420,7 @@ li>a {
     left: 0;
     top: 0;
     height: 100vh;
-    padding: 2rem;
+    padding: 25px;
     background: #242529;
     width: 300px;
     transform: translateX(-100%);
@@ -472,7 +472,6 @@ li>a {
     outline: none;
     padding: 5px;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 3px;
 }
 
