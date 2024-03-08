@@ -22,6 +22,14 @@ const searchRow = document.querySelector('.search-row')
 const searchInput = document.querySelector('.search-input')
 const featuredCourse = document.querySelector('.featured-course')
 const back_to_top = document.querySelector('.back-to-top')
+const shoppingCartTotal = document.querySelector('.shopping-cart-total')
+const shoppingCartIcon = document.querySelector('.fa-shopping-bag')
+const shoppingCartBox = document.querySelector('.shopping-cart-box')
+const shoppingBagItemsNumber = document.querySelector('.mini-cart-opener .reactapp-cart-number')
+const mobileMenuShoppingCartNumber = document.querySelector('.studiare-cart-number')
+const mobileShoppingCartItemsNumber = document.querySelector('.top-bar-items-mobile .reactapp-cart-number')
+const shoppingCartItems = document.querySelector('.shopping-cart-items')
+let shoppingCartTimesIcons = shoppingCartBox.querySelectorAll('.fa.fa-times')
 
 // Back To Top Progress
 let scrollHeight , scrollTop , clientHeight , position_percentage;
@@ -84,7 +92,6 @@ window.addEventListener('scroll' , function() {
     clientHeight = this.document.documentElement.clientHeight
 
     position_percentage = Math.round((scrollTop * 100) / (scrollHeight - clientHeight))
-    console.log(position_percentage);
 
     back_to_top.style.setProperty('background-image' , `conic-gradient(#ffd738 ${position_percentage}% , #455A64 ${position_percentage}%)`)
 })
@@ -245,6 +252,11 @@ function addSpeechRecognition() {
     recognition.start()
 }
 
+function deleteProduct(e) {
+    e.target.parentElement.remove()
+    updateShoppingCartItems()
+}
+
 // header nav menu border animation 
 
 const menuItems = document.querySelectorAll('.nav-menu li');
@@ -283,3 +295,70 @@ function countDown() {
 }
 setInterval(countDown , 1000)
 // CountDown end
+
+// Shopping cart start
+shoppingCartIcon.addEventListener('click' , toggleShoppingCartBox)
+
+function toggleShoppingCartBox() {
+    shoppingCartBox.classList.toggle('active')
+}
+
+function updateShoppingCartItems() {   
+    let sum = 0;
+    const coursesPrice = shoppingCartBox.querySelectorAll('.item-price')
+    coursesPrice.forEach(course => {
+        sum += Number(course.innerText.match(/\d+/))
+    })
+    shoppingCartTotal.innerText = `${sum} تومان`
+    shoppingBagItemsNumber.innerText = coursesPrice.length
+    mobileShoppingCartItemsNumber.innerText = coursesPrice.length
+    mobileMenuShoppingCartNumber.innerText = coursesPrice.length
+}
+
+updateShoppingCartItems()
+
+// Add item to shopping cart start
+const pruductsAddToCartBtns = document.querySelectorAll('.featured-course-container .course .add-to-cart')
+pruductsAddToCartBtns.forEach(item => {
+    item.addEventListener('click' , detectCourseDetails)
+})
+
+function detectCourseDetails(e) {
+    e.preventDefault()
+    if(e.target.className === 'add-to-cart') {
+        const course = e.target.parentElement.parentElement
+        addToCartCourse(course)
+    } else if(e.target.className === 'fas fa-user-plus') {
+        const course = e.target.parentElement.parentElement.parentElement
+        addToCartCourse(course)
+    }
+}
+
+function addToCartCourse(course) {
+    let courseImageSource = course.querySelector('.thumnail-course-holder img').src
+    let courseTitle = course.querySelector('.course-content-holder .course-title').innerText
+    let coursePrice = course.querySelector('.course-price .amount').innerText.match(/\d+/)
+    console.log(course.querySelector('.course-price .amount').innerText.match(/\d+/));
+    coursePrice = (coursePrice === 'رایگان!') ? 0 : Number(coursePrice)
+    // console.log(courseImageSource , courseTitle , coursePrice);
+    const newCartItem = document.createElement('div')
+    newCartItem.classList.add('shopping-cart-item')
+    newCartItem.innerHTML = `
+    <i class="fa fa-times"></i>
+    <img src="${courseImageSource}" alt="${courseTitle}">
+    <div class="cart-item-content">
+        <span class="list-name">${courseTitle}</span>
+        <span class="item-price">${coursePrice} تومان</span>
+    </div>
+    `
+    newCartItem.querySelector('.fa.fa-times').addEventListener('click' , deleteProduct)
+    shoppingCartItems.appendChild(newCartItem)
+    updateShoppingCartItems()
+}
+// delete shopping cart items
+shoppingCartTimesIcons.forEach(item => {
+    item.addEventListener('click' , deleteProduct)
+})
+// Add item to shopping cart end
+
+// Shopping cart end
